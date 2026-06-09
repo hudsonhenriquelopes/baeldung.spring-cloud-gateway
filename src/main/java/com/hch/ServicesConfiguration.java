@@ -15,9 +15,9 @@ public class ServicesConfiguration {
                         r.path("/books/**")
                                 .filters(f -> f.setPath("/"))
                                 .uri("http://localhost:8083"))
-                .route("ratings", r ->
-                        r.path("/ratings/**")
-                                .uri("http://localhost:8084"))
+//                .route("ratings", r ->
+//                        r.path("/ratings/**")
+//                                .uri("http://localhost:8084"))
                 .build();
     }
 }

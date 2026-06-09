@@ -8,6 +8,12 @@ spring:
               uri: http://baeldung.com
               predicates:
                 - Path=/baeldung/
+            - id: rating_route
+              uri: http://localhost:8084
+              predicates:
+                - Path=/rating-service/**
+              filters:
+                - RewritePath=/rating-service/?(?<remaining>.*), /$\{remaining}
 management:
   endpoints:
     web:

@@ -37,15 +37,16 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         return http
-                .formLogin(formLogin -> formLogin.authenticationSuccessHandler(
-                        new RedirectServerAuthenticationSuccessHandler("/home/index.html")))
+                .formLogin(formLogin -> formLogin
+                        .authenticationSuccessHandler(
+                                new RedirectServerAuthenticationSuccessHandler("/home/browser/index.html")))
                 .authorizeExchange(authorize -> authorize
-                        .pathMatchers("/book-service/**", "/rating-service/**", "/login*", "/").permitAll()
-                        .pathMatchers("/eureka/**").hasRole("ADMIN")
+                        .pathMatchers("/login", "/", "/book-service/**").permitAll()
+                        .pathMatchers("/rating-service/**", "/eureka/**").hasRole("ADMIN")
                         .anyExchange().authenticated())
-                .logout(Customizer.withDefaults())
+                .logout(logoutSpec -> {})
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
                 .build();
     }
 }
